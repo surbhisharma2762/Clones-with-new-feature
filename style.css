@@ -142,8 +142,6 @@
     font-weight: bold;
     font-size: 14px;
 }
-
-
 .playbar{
     position: absolute;
     bottom: 0;
@@ -155,4 +153,30 @@
     display: flex;
     justify-content: center;
     gap: 12px;
+}
+.songList ul{
+    padding: 0 30px;
+}
+
+.songList ul li{
+    list-style-type: decimal;
+    display: flex;
+    gap: 20px;
+    cursor: pointer;
+    padding:12px 0 ;
+    font-size: 12px;
+    border: 1px solid white;
+    margin: -2px;
+    padding: 2px;
+    border-radius: 5px;
+}
+.playnow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.playnow span{
+    font-size: 10px;
+    width: 42px;
+   padding: 12px;
 }
