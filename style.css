@@ -5,11 +5,13 @@
     padding: 0;
     font-family: 'Roboto', sans-serif;
 }
-/* body{
+body{
     background-color: black;
     color: white;
-} */
-
+}
+.close{
+    display: none;
+}
 .left{
     width: 25vw;
     padding: 10px;
@@ -40,7 +42,7 @@
     width: 21px;
 }
 .library{
-    min-height: 73vh;
+    min-height: 80vh;
     position: relative;
 }
 .footer{
@@ -77,11 +79,11 @@
     display: flex;
     gap: 9px;
     flex-wrap: wrap;
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 63vh;
 }
 .card{
-    width: 140px;
+    width: 200px;
     padding: 10px;
     border-radius: 4px;
     background-color: #252525;
@@ -151,7 +153,7 @@
     width: 96%;
     padding: 10px;
     width: 70vw;
-    height: 30px;
+    min-height: 30px;
 }
 .songbuttons{
     display: flex;
@@ -162,6 +164,15 @@
     height: 428px;
     overflow: auto;
     margin: 5px 0 74px 0;
+}
+.hamburger{
+    display: none;
+}
+.hamburgerContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
 }
 .songList ul{
     padding: 0 10px;
@@ -196,12 +207,13 @@
 }
 .seekbar{
     width: 97%;
-    height: 2px;
+    height: 4px;
     background: black;
     border-radius: 10px;
     position: absolute;
     bottom: 0;
     margin: 6px;
+    cursor: pointer;
 }
 .circle{
     width: 13px;
@@ -224,4 +236,53 @@
 .abovebar{
     display: flex;
     justify-content: space-between;
+    margin: 15px 0;
 }
+@media (max-width: 1400px) {
+    .left{
+        background-color: black;
+        position: absolute;
+        left: -120%;
+        transition: all .3s;
+        z-index: 1;
+        width: 365px;
+    }
+    .left .close img{
+        position: absolute;
+        right: 31px;
+        top: 25px;
+        width: 29px;
+    }
+    .right{
+        width: 100vw;
+    }
+    .playbar {
+        width: calc(100vw - 60px);
+    }
+    .spotifyplaylists h2{
+        font-size: 40px;
+    }
+    .seekbar{
+        width: calc(100vw - 70px);
+    }
+    .hamburger{
+        display: block;
+    }
+    .card{
+        width: 70vw;
+    }
+    .cardContainer{
+        margin: 9px;
+        justify-content: center;
+    }
+    .close{
+        display: block;
+    }
+    .abovebar{
+        flex-direction: column;
+        gap: 13px;
+        align-items: center;
+        margin: 15px;
+    }
+}
+  
