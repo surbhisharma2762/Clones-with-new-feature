@@ -1,4 +1,5 @@
 let currentSong = new Audio();
+let songs;
 function secondsToMinutesSeconds(seconds) {
   // Ensure seconds is an integer
   seconds = Math.floor(seconds);
@@ -50,7 +51,7 @@ const playMusic = (track, pause = false) => {
 
 async function main() {
   //get the list of all the songs
-  let songs = await getSongs();
+  songs = await getSongs();
   playMusic(songs[0], true);
   // console.log(songs)
   // var audio = new Audio(songs[1]);
@@ -78,8 +79,7 @@ async function main() {
     document.querySelector(".songList").getElementsByTagName("li")
   ).forEach((e) => {
     e.addEventListener("click", (element) => {
-      console.log(e.querySelector(".info").firstElementChild.innerHTML);
-      playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
+       playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
     });
   });
 
@@ -115,6 +115,37 @@ async function main() {
   document.querySelector(".close").addEventListener("click",()=>{
     document.querySelector(".left").style.left='-120%'
   })
+  //Add an event listner to previous 
+  previous.addEventListener("click",()=>{
+    console.log("previous clicked")
+    let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+    if((index-1) >= 0){
+      playMusic(songs[index-1])
+    }
+  })
+  //Add an event listner tonext
+  next.addEventListener("click",()=>{
+    currentSong.pause()
+    console.log("next clicked")
+    let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+    if((index+1)<songs.length){
+      playMusic(songs[index+1])
+    }
+    
+  })
+  //Add an vent to volume
+  document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change",(e)=>{
+    console.log("setting volume to", e.target.value,"/100")
+    currentSong.volume =parseInt(e.target.value)/100
+  })
 }
 
 main();
+
+//as a beginner we always write like this to check whether the code is working or not
+
+// //Add an event listner to previous and next
+// previous.addEventListener("click",()=>{
+//   console.log("previous clicked")
+//   console.log(previousSong.src)
+// })

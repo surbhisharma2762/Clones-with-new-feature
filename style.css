@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
+:root{
+    --a:0;
+}
 *{
     margin: 0;
     padding: 0;
@@ -89,10 +91,16 @@ body{
     background-color: #252525;
     position: relative;
     font-size: 12px;
+    transition: all 0.7s;
 }
 /* .card>*{
     padding-top: 7px;
 } */
+.card:hover{
+    background-color: rgb(87, 87, 87);
+    cursor:pointer;
+    --a:1;
+}
 .card img{
     width: 100%;
     object-fit: contain;
@@ -109,10 +117,10 @@ body{
     padding: 0;
     margin: 0;
     position: absolute;
-    top: 106px;
-    right: 17px;
-    /* opacity: 0;
-    transition: ease-in; */
+    top: 152px;
+    right: 22px;
+    opacity: var(--a);
+    transition: all 1s ease-out;
 
 }
 .buttons>*{
@@ -195,6 +203,9 @@ body{
     font-size: 14px;
     width: 163px;
 }
+.info div{
+    word-break: break-all;
+}
 .playnow{
     display: flex;
     justify-content: center;
@@ -229,15 +240,35 @@ body{
     cursor: pointer;
     
 }
-.songinfo, .songtime{
+.timevol{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    /* margin-right: 28px; by me */
+}
+.songinfo{
     color: black;
     padding: 0 12px;
+    width: 250px;
+}
+.songtime{
+    color: black;
+    padding: 0 12px;
+    width: 125px;
+}
+.volume{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
 }
 .abovebar{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: 15px 0;
 }
+
 @media (max-width: 1400px) {
     .left{
         background-color: black;
@@ -246,12 +277,23 @@ body{
         transition: all .3s;
         z-index: 1;
         width: 365px;
+        padding: 0;
+    }
+    .songinfo,.songtime{
+        width: auto;
     }
     .left .close img{
         position: absolute;
         right: 31px;
         top: 25px;
         width: 29px;
+    }
+    .timevol{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: column;
+        gap: 13px;
     }
     .right{
         width: 100vw;
@@ -269,7 +311,7 @@ body{
         display: block;
     }
     .card{
-        width: 70vw;
+        width: 44vw;
     }
     .cardContainer{
         margin: 9px;
@@ -285,4 +327,13 @@ body{
         margin: 15px;
     }
 }
-  
+
+@media (max-width: 800px) {
+    .card{
+        width: 60vw;
+    }
+    .play{
+        top: 172px;
+        right: 25px;
+    }
+}
