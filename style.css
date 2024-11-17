@@ -82,7 +82,7 @@ body{
     gap: 9px;
     flex-wrap: wrap;
     overflow-y: auto;
-    max-height: 63vh;
+    padding-bottom: 60vh;
 }
 .card{
     width: 200px;
@@ -261,6 +261,10 @@ body{
     justify-content: center;
     align-items: center;
     gap: 12px;
+    cursor: pointer;
+}
+.range input{
+    cursor: pointer;
 }
 .abovebar{
     display: flex;
