@@ -175,6 +175,7 @@ body{
 }
 .hamburger{
     display: none;
+    cursor: pointer;
 }
 .hamburgerContainer{
     display: flex;
@@ -316,6 +317,7 @@ body{
     }
     .card{
         width: 44vw;
+        /* width: auto; */
     }
     .cardContainer{
         margin: 9px;
@@ -330,11 +332,14 @@ body{
         align-items: center;
         margin: 15px;
     }
+    .cardContainer{
+        padding-bottom: 50vh;
+    }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 500px) {
     .card{
-        width: 60vw;
+        width: 100%;
     }
     .play{
         top: 172px;

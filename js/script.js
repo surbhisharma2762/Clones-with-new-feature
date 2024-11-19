@@ -22,9 +22,7 @@ async function getSongs(folder) {
   currFolder = folder;
   try {
     //
-    let a = await fetch(
-      `http://127.0.0.1:5500/Clones-with-new-feature/${folder}/`
-    );
+    let a = await fetch(`/Clones-with-new-feature/${folder}/`);
     let response = await a.text();
     //console.log(response); //bigger oneeeeeeeeeeeeeeeeee
     let div = document.createElement("div");
@@ -45,14 +43,14 @@ async function getSongs(folder) {
       songUL.innerHTML =
         songUL.innerHTML +
         `<li>
-                <img class="invert" src="music.svg" alt="">
+                <img class="invert" src="img/music.svg" alt="">
                 <div class="info">
                   <div>${song.replaceAll("%20", " ")}</div>
                   <div>Shubh</div>
                 </div>
                 <div class="playnow">
                   <span>Play Now</span>
-                  <img class="invert" src="play.svg" alt="">
+                  <img class="invert" src="img/play.svg" alt="">
                 </div> </li>`;
     }
     //Attach an event listener to each song
@@ -63,20 +61,21 @@ async function getSongs(folder) {
     });
   } catch (error) {
     console.log("error fetching songs");
-  } //
+  }
+  return songs;
 }
 const playMusic = (track, pause = false) => {
-  currentSong.src = `/Clones-with-new-feature/${currFolder}/` + track;
+  currentSong.src = `/Clones-with-new-feature/${currFolder}/` + track; //this is right
   if (!pause) {
     currentSong.play();
-    play.src = "pause.svg";
+    play.src = "img/pause.svg";
   }
   document.querySelector(".songinfo").innerHTML = decodeURI(track);
   document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
 };
 
 async function displayAlbums() {
-  let a = await fetch(`http://127.0.0.1:5500/Clones-with-new-feature/songs/`);
+  let a = await fetch(`/songs/`);
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -85,10 +84,10 @@ async function displayAlbums() {
   let array = Array.from(anchors)
   for (let index = 0; index < array.length; index++) {
     const e = array[index];
-    if(e.href.includes("/Clones-with-new-feature/songs")){
+    if(e.href.includes("/songs")){
       let folder = e.href.split("/").slice(-2)[0]
       //Get the metadata of the folder
-      let a = await fetch(`http://127.0.0.1:5500/Clones-with-new-feature/songs/${folder}/info.json`);
+      let a = await fetch(`/songs/${folder}/info.json`);
       let response = await a.json();
       console.log(response)
       cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder=${folder} class="card">
@@ -98,7 +97,7 @@ async function displayAlbums() {
                   <!-- fill="#000" to make inner button black -->
                 </svg>
               </div>
-              <img src="Clones-with-new-feature/songs/${folder}/cover.jpg" alt="">
+              <img src="/songs/${folder}/cover.jpg" alt="">
               <h2>${response.title}</h2>
               <p>${response.description}</p>
             </div>`
@@ -117,21 +116,21 @@ async function displayAlbums() {
 
 async function main() {
   //Get the list of all the songs
-  await getSongs("songs/ncs"); //maybe problem occur here
+  await getSongs("songs/IndreshUpadhyay"); //maybe problem occur here
   playMusic(songs[0], true);
   
   //Display all the albums on the page
-
+  await displayAlbums()
 
   ///Attach an event listner to play, next and previous
 
   play.addEventListener("click", () => {
     if (currentSong.paused) {
       currentSong.play();
-      play.src = "pause.svg";
+      play.src = "img/pause.svg";
     } else {
       currentSong.pause();
-      play.src = "play.svg";
+      play.src = "img/play.svg";
     }
   });
 
@@ -169,11 +168,17 @@ async function main() {
   next.addEventListener("click", () => {
     currentSong.pause();
     console.log("next clicked");
+
+    // Get the current song source
     let songSrc = currentSong.src.split("/").slice(-1)[0];
+
+  // Check if the songs array is valid and has elements
   if (songs && songs.length > 0) {
     let index = songs.indexOf(songSrc);
     if (index >= 0) {
       // Continue with the logic to play the previous song
+      let nextIndex = (index + 1) % songs.length;
+      playMusic(songs[nextIndex]);
     } else {
       console.error("Song not found in the list");
     }
